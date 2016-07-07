@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ActorMapper">
+	<resultMap type="po.Actor" id="actorMap">
+        <id column="actor_id" property="id" ></id>
+        <result column="first_name" property="first_name"/>
+        <result column="last_name" property="last_name"/>
+        <result column="last_update" property="last_update"/>
+    </resultMap>
+	<select id="getAllactors" resultType="java.util.List" resultMap="actorMap">
+		select * from actor
+	</select>
+</mapper>
