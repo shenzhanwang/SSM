@@ -1,13 +1,11 @@
 package po;
 
-import java.util.Date;
 
 public class City {
 	private short city_id;
 	private String city;
-	private Date last_update;
-	
-	
+	private String last_update;
+	private Country country;
 	public short getCity_id() {
 		return city_id;
 	}
@@ -20,11 +18,18 @@ public class City {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Date getLast_update() {
+	public Country getCountry() {
+		return country;
+	}
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+	public String getLast_update() {
 		return last_update;
 	}
-	public void setLast_update(Date last_update) {
+	public void setLast_update(String last_update) {
 		this.last_update = last_update;
 	}
+	
 	
 }

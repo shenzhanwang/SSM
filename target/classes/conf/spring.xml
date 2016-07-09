@@ -10,5 +10,5 @@
     <context:property-placeholder location="classpath:conf/jdbc.properties"/>
     
     <!-- 扫描文件（自动将servicec层注入） -->
-    <context:component-scan base-package="service,dao.impl"/>
+    <context:component-scan base-package="service.impl"/>
 </beans>

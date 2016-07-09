@@ -1,9 +1,9 @@
 package service;
 
 import java.util.List;
-
-import vo.Cityinfo;
+import po.City;
 
 public interface CityService {
-	List<Cityinfo> getCitylist();
+	List<City> getCitylist();
+	List<City> getpagecitylist(int pagenum, int pagesize);
 }

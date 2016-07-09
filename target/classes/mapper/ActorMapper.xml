@@ -9,6 +9,7 @@
         <result column="last_name" property="last_name"/>
         <result column="last_update" property="last_update"/>
     </resultMap>
+    
 	<select id="getAllactors" resultMap="actorMap">
 		select * from actor
 	</select>
