@@ -7,7 +7,8 @@ import po.Actor;
 	public interface ActorService {
 		List<Actor> getpageActors(int pagenum,int pagesize);
 		int getactornum();
-		Actor getActorByid(int id);
+		Actor getActorByid(short id);
 		void updateactor(Actor a);
-		void addactor(short id);
+		void addactor(Actor a);
+		void delete(short id);
 	}

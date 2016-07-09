@@ -17,19 +17,13 @@ public class ActorServiceImpl implements ActorService{
 	@Autowired
 	public ActorMapper actorMapper;
 	    
-	public Actor getActorByid(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Actor getActorByid(short id) {
+		Actor a=actorMapper.getactorbyid(id);
+		return a;
 	}
 
 	public void updateactor(Actor a) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void addactor(short id) {
-		// TODO Auto-generated method stub
-		
+		actorMapper.updateActorbyid(a);
 	}
 
 	public List<Actor> getpageActors(int pagenum, int pagesize) {
@@ -41,6 +35,14 @@ public class ActorServiceImpl implements ActorService{
 	public int getactornum() {
 		List<Actor> l=actorMapper.getAllactors();
 		return l.size();
+	}
+
+	public void addactor(Actor a) {
+		actorMapper.insertActor(a);
+	}
+
+	public void delete(short id) {
+		actorMapper.delete(id);
 	}
 
 }

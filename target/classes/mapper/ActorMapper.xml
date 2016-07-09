@@ -9,7 +9,22 @@
         <result column="last_name" property="last_name"/>
         <result column="last_update" property="last_update"/>
     </resultMap>
-	<select id="getAllactors" resultType="java.util.List" resultMap="actorMap">
+	<select id="getAllactors" resultMap="actorMap">
 		select * from actor
 	</select>
+	<update id="updateActorbyid" parameterType="po.Actor">
+		update actor set 
+		first_name=#{first_name},last_name=#{last_name},last_update=#{last_update}
+		where actor_id=#{id}
+	</update>
+	<select id="getactorbyid" resultMap="actorMap" parameterType="short">
+		select * from actor where actor_id=#{id} 
+	</select>
+	<insert id="insertActor" useGeneratedKeys="true" keyProperty="id" parameterType="po.Actor">
+	  insert into actor (first_name,last_name,last_update)
+	  values (#{first_name},#{last_name},#{last_update})
+	</insert>
+	<delete id="delete" parameterType="short">
+		delete from actor where actor_id=#{id}
+	</delete>
 </mapper>
