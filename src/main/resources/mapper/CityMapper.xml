@@ -15,14 +15,21 @@
     </resultMap>
     
     <resultMap type="po.Country" id="chinacity">
-    
+    	<id column="country_id" property="country_id"></id>
+    	<result column="country" property="country" />
+    	<result column="last_update" property="last_update" />
+    	<collection property="citys" ofType="po.City">
+    		<id column="city_id" property="city_id"></id>
+    		<result column="city" property="city" />
+    		<result column="last_update" property="last_update" />
+    	</collection>
     </resultMap>
     
     <select id="getCitys" resultMap="cityMap">
     	select * from city,country where city.country_id=country.country_id
     </select>
     
-    <select id="getcountrycitys" parameterType="String" resultMap="chinacity">
+    <select id="getCountrycity" parameterType="String" resultMap="chinacity">
     	select * from country,city where city.country_id=country.country_id and country.country=#{country}
     </select>
 </mapper>

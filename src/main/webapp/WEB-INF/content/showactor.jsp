@@ -40,6 +40,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">跨表查询<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="country_city">country和city</a></li>
+          	<li><a href="chinacity">查询中国的city</a></li>
           </ul>
         </li>
         <li><a href="fileupload">fileupload</a></li>
