@@ -25,16 +25,14 @@ public class CityServiceImpl implements CityService{
 		return l;
 	}
 	public List<City> getCountryCity(String Countryname) {
-		List<Country> list=citymapper.getCountrycity(Countryname);
-		return list.get(0).getCitys();
+		List<City> list=citymapper.getCountrycity(Countryname);
+		return list;
 	}
 	public List<City> getpageCountryCity(String Countryname, int pagenum,
 			int pagesize) {
-		
-		List<Country> list=citymapper.getCountrycity(Countryname);
 		PageHelper.startPage(pagenum,pagesize); 
-		List<City> clist=list.get(0).getCitys();
-		return clist;
+		List<City> list=citymapper.getCountrycity(Countryname);
+		return list;
 	}
 
 }

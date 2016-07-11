@@ -3,9 +3,8 @@ package mapper;
 import java.util.List;
 
 import po.City;
-import po.Country;
 
 public interface CityMapper {
 	List<City> getCitys();
-	List<Country> getCountrycity(String countryname);
+	List<City> getCountrycity(String countryname);//获取某国家城市列表
 }

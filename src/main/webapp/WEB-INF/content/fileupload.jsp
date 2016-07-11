@@ -3,16 +3,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>country和city表连接查询</title>
+    <title>文件上传</title>
     <script src="./js/jquery-1.12.3.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="./css/jquery.bootgrid.min.css">
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="./js/jquery.bootgrid.min.js"></script>
   </head>
   <body>
-    <div class="container">
-  	<div class="row">
+  <div class="container">
+    	<div class="row">
   		<div class="col-md-12">
   		<nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -38,7 +36,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">跨表查询<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="country_city">country和city</a></li>
-          	<li><a href="chinacity">查询中国的city</a></li>
+            <li><a href="staff_store">staff和store</a></li>
           </ul>
         </li>
         <li><a href="fileupload">fileupload</a></li>
@@ -51,34 +49,26 @@
   	</div>
   	<div class="row">
   		<div class="col-md-12">
-  		<h2>country和city表连接查询的信息,1-N映射,查询所有中国的城市</h2>
-  		    <table id="grid-data" class="table table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th data-column-id="city_id"  data-identifier="true" data-type="numeric">cityID</th>
-                <th data-column-id="city">city</th>
-                <th data-column-id="last_update">last_update</th>
-                <th data-column-id="commands" data-formatter="commands" data-sortable="false">country</th>
-            </tr> 
-        </thead>
-    </table>
+   <form id="upload" action="uploadfile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+    		<label for="fileupload">fileupload</label>
+    		<input type="file" name="uploadfile" class="form-control" id="fileupload">
   		</div>
-  	</div>
-  </div>
-<script>
-$(document).ready(function(){
-    var grid =$("#grid-data").bootgrid({
-    ajax:true,
-    url:"getchainacity",
-     formatters: {
-        "commands": function(column, row)
-        {
-            return row.country.country; 
-        }
-    }
-    });
+        <button type="submit"  class="btn btn-primary">upload</button>
+   </form>
+  	 </div>
+  	 </div>
+   </div>
+  </body>
+  <script type="text/javascript">
+  $(document).ready(function(){
+	  $("#upload").submit(function(){
+	    if($("#fileupload").val()=="")
+	    {
+	    	alert("请选择文件上传");
+	    	return false;
+	    }
+	  });
   });
   </script>
-  </body>
-  </body>
 </html>
