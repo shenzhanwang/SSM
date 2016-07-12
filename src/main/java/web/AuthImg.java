@@ -73,6 +73,7 @@ public class AuthImg extends HttpServlet
 		}
 		HttpSession session = request.getSession(true);
 		session.setAttribute("rand" , sRand);
+//		System.out.println("写入session"+sRand);
 		g.dispose();
 		ImageIO.write(image, "JPEG", response.getOutputStream());
 	}

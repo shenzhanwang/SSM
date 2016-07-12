@@ -1,7 +1,12 @@
 package controller;
 
+import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,4 +80,14 @@ public class ActorController {
 		actorservice.delete(id);
 		return "showactor";
 	}
+	
+	@RequestMapping("/exportactor")
+	public void export(HttpServletResponse response) throws Exception{
+		InputStream is=actorservice.getInputStream();
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("contentDisposition", "attachment;filename=AllUsers.xls");
+		ServletOutputStream output = response.getOutputStream();
+		IOUtils.copy(is, output);
+	}
+	
 }

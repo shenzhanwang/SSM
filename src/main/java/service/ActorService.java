@@ -1,5 +1,6 @@
 package service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import po.Actor;
@@ -11,4 +12,5 @@ import po.Actor;
 		void updateactor(Actor a);
 		void addactor(Actor a);
 		void delete(short id);
+		InputStream getInputStream() throws Exception;
 	}

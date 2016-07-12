@@ -1,5 +1,7 @@
 package service.impl;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import mapper.ActorMapper;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 
 import po.Actor;
+import poi.WriteExcel;
 import service.ActorService;
 
 @Service("actorservice")
@@ -43,6 +46,24 @@ public class ActorServiceImpl implements ActorService{
 
 	public void delete(short id) {
 		actorMapper.delete(id);
+	}
+
+	public InputStream getInputStream() throws Exception {
+		String[] title=new String[]{"id","first_name","last_name","last_update"};
+		List<Actor> plist=actorMapper.getAllactors();
+		List<Object[]>  dataList = new ArrayList<Object[]>();  
+		for(int i=0;i<plist.size();i++){
+			Object[] obj=new Object[4];
+			obj[0]=plist.get(i).getId();
+			obj[1]=plist.get(i).getFirst_name();
+			obj[2]=plist.get(i).getLast_name();
+			obj[3]=plist.get(i).getLast_update();
+			dataList.add(obj);
+		}
+		WriteExcel ex = new WriteExcel(title, dataList);  
+		InputStream in;
+		in = ex.export();
+		return in;
 	}
 
 }
