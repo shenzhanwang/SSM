@@ -22,3 +22,9 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 9.包含了带验证码的登录功能以及登录权限验证的拦截器；
 
 9.整个包可直接导入Myeclipse继续编辑，war文件可直接放入tomcat部署。
+
+效果图：
+ ![alt text](https://github.com/shenzhanwang/SSM/blob/master/%E6%88%AA%E5%9B%BE/1.png)
+ ![alt text](https://github.com/shenzhanwang/SSM/blob/master/%E6%88%AA%E5%9B%BE/2.png)
+
+
