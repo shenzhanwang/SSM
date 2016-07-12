@@ -5,7 +5,7 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 
 1.SpringMVC4.0.4,Mybatis3.2.2,Spring4.0.4三大框架的整合；
 
-2.前端框架集成了Bootstrap3.3.5，Jquery1.12.3,集成了Bootstrap插件Bootgrid数据表格实现分页，使用Bootstrap的datetimepicker插件实现日期时间选择；
+2.前端框架集成了Bootstrap3.3.5，Jquery1.12.3,集成了Bootstrap插件Bootgrid数据表格实现分页，使用Bootstrap的datetimepicker插件实现日期时间选择，后台的分页使用Mybatis的插件pagehelper实现；
 
 3.数据库使用Mysql中自带的sakila数据库，使用前，请将SSM\src\main\resources\conf中的spring-mybatis.xml中的数据库密码设置为自己的；
 
@@ -22,6 +22,8 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 9.包含了带验证码的登录功能以及登录权限验证的拦截器；
 
 10.整个包可直接导入Myeclipse继续编辑，war文件可直接放入tomcat部署。
+
+访问入口：http://localhost:8080/SSM/login
 
 效果图：
 
