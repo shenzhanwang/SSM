@@ -23,6 +23,8 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 
 10.整个包可直接导入Myeclipse继续编辑，war文件可直接放入tomcat部署。
 
+11.要使用Struts2+hibernate+spring的整合，[参见](https://github.com/shenzhanwang/SSH_maven)  
+
 访问入口：http://localhost:8080/SSM/login
 
 效果图：
