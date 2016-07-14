@@ -25,6 +25,10 @@ public String fileupload(@RequestParam MultipartFile uploadfile,HttpServletReque
 		MultipartFile file=uploadfile;
 		String filename=file.getOriginalFilename();
 		InputStream is=file.getInputStream();
+		if(!file.getContentType().equals("application/pdf"))
+			return "typeror";
+		if(file.getSize()>=2048000000)
+			return "filetoolarge";
 		String targetDir=request.getSession().getServletContext().getRealPath("uploadfiles");
 		File targetfile=new File(targetDir,filename);
 		FileOutputStream os=new FileOutputStream(targetfile);

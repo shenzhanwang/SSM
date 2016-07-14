@@ -43,6 +43,5 @@
 </bean>	
 <!-- 文件上传 -->
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<property name="maxUploadSize" value="2048000000"></property>
 </bean>
 </beans>
