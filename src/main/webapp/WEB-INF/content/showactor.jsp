@@ -56,6 +56,15 @@
   		<h2>actor表的信息</h2>
   		<a class="btn btn-primary" href="exportactor">导出数据为excel</a>
   		<a class="btn btn-primary" href="#" id="add">添加actor</a>
+  		<div class="btn-group">
+		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    REST Service <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li><a href="/SSM/actorlistxml?current=1&rowCount=10" target="_blank">XML</a></li>
+		    <li><a href="/SSM/actorlist?current=1&rowCount=10" target="_blank">JSON</a></li>
+		  </ul>
+		</div>
   		<table id="grid-data" class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
@@ -69,6 +78,9 @@
     </table>
   		</div>
   	</div>
+  	
+  	
+  	
   </div>
 <script>
 $(document).ready(function(){
@@ -116,7 +128,6 @@ $(document).ready(function(){
   	 	 });
   	 	 $("#lupdate").datetimepicker('setStartDate', '2012-01-01 0:0:0');
   });
-  
   
   </script>
   <div class="modal fade actormodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">

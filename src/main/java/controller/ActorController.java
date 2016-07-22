@@ -38,6 +38,20 @@ public class ActorController {
 		return JSON.toJSONString(grid);
 	}
 	
+	@RequestMapping(value="/actorlistxml",produces = {"application/xml;charset=UTF-8"})
+	@ResponseBody
+	public ActorGrid getactorlistxml(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
+		int total=actorservice.getactornum();
+		List<Actor> list=actorservice.getpageActors(current,rowCount);
+		ActorGrid grid=new ActorGrid();
+		grid.setCurrent(current);
+		grid.setRowCount(rowCount);
+		grid.setRows(list);
+		grid.setTotal(total);
+		return grid;
+	}
+	
+	
 	@RequestMapping("/showactor")
 	public String showactor(){
 		return "showactor";

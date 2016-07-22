@@ -1,7 +1,11 @@
 package pagemodel;
 
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
 import po.Actor;
+@XmlRootElement
 public class ActorGrid {
 	private int current;//当前页面号
 	private int rowCount;//每页行数
