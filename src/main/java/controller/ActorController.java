@@ -25,7 +25,7 @@ public class ActorController {
 	@Autowired
 	private ActorService actorservice;
 	
-	@RequestMapping("/actorlist",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/actorlist",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public String getactorlist(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int total=actorservice.getactornum();

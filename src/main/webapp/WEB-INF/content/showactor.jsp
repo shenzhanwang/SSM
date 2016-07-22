@@ -89,11 +89,11 @@ $(document).ready(function(){
 	    {
 	        $(".actormodal").modal();
 	        $.post("getActorInfo",{id:$(this).data("row-id")},function(str){
-	        	var data=JSON.parse(str);
-	        	$("#fname").val(data.first_name);
-	        	$("#lname").val(data.last_name);
-	        	$("#lupdate").val(data.last_update);
-	        	$("#actorid").val(data.id);
+	        	//var data=JSON.parse(str);
+	        	$("#fname").val(str.first_name);
+	        	$("#lname").val(str.last_name);
+	        	$("#lupdate").val(str.last_update);
+	        	$("#actorid").val(str.id);
 	        });
 	    }).end().find(".command-delete").on("click", function(e)
 		    {
@@ -156,22 +156,22 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">update actor</h4>
+        <h4 class="modal-title">add actor</h4>
       </div>
       <form action="addactor" method="post">
       <div class="modal-body">
         <div class="form-group">
     		<label for="fname">first name</label>
-    		<input type="text" name="first_name" class="form-control" id="fname">
+    		<input type="text" name="first_name" class="form-control" id="fname2">
   		</div>
         <div class="form-group">
     		<label for="lname">last name</label>
-    		<input type="text" name="last_name" class="form-control" id="lname">
+    		<input type="text" name="last_name" class="form-control" id="lname2">
   		</div>
   		<div class="form-group">
     		<label for="lupdate">last update</label>
-    		<input type="text" name="last_update" class="form-control" id="lupdate">
-    		<input type="hidden" id="actorid" name="id" />
+    		<input type="text" name="last_update" class="form-control" id="lupdate2">
+    		<input type="hidden" id="actorid" name="id2" />
   		</div>
       </div>
       <div class="modal-footer">
