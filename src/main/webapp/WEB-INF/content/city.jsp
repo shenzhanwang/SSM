@@ -51,7 +51,7 @@
   	</div>
   	<div class="row">
   		<div class="col-md-12">
-  		<h2>country和city表连接查询的信息,1-N映射,使用association</h2>
+  		<h2>country和city表连接查询的信息,N-1映射,使用association</h2>
   		    <table id="grid-data" class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
@@ -62,6 +62,10 @@
             </tr>
         </thead>
     </table>
+    <div class="col-md-12">
+  		<h2>country和city表连接查询的信息,1-N映射,使用collection</h2>
+  		<a href="countrycity?country=china">查看中国的城市列表(json)</a>
+  	</div>
   		</div>
   	</div>
   </div>

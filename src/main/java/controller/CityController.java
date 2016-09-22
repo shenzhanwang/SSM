@@ -56,4 +56,12 @@ public class CityController {
 		return "country";
 	}
 	
+	
+	@RequestMapping("/countrycity")
+	@ResponseBody
+	String getcountrycity(@RequestParam("country")String country){
+		Country a=cityservice.getCountryCitys(country);
+		return JSON.toJSONString(a);
+	}
+	
 }

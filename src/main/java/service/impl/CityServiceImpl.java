@@ -34,5 +34,8 @@ public class CityServiceImpl implements CityService{
 		List<City> list=citymapper.getCountrycity(Countryname);
 		return list;
 	}
+	public Country getCountryCitys(String Countryname) {
+		return citymapper.getCitysbyCountry(Countryname);
+	}
 
 }

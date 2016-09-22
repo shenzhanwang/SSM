@@ -6,9 +6,17 @@
     <script src="./js/jquery-1.12.3.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+.vertical-center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
   </head>
   <body>
-    <div class="container">
+    <div class="container vertical-center">
 	<div class="col-md-6 col-md-offset-3">
       <form  action="loginvalidate" method="post">
         <h2 >Please login</h2>

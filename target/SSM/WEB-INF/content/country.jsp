@@ -38,6 +38,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">跨表查询<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="country_city">country和city</a></li>
+          	<li><a href="chinacity">查询中国的city</a></li>
           </ul>
         </li>
         <li><a href="fileupload">fileupload</a></li>
@@ -50,7 +51,7 @@
   	</div>
   	<div class="row">
   		<div class="col-md-12">
-  		<h2>country和city表连接查询的信息,1-N映射,使用collection,查询所有中国的城市</h2>
+  		<h2>country和city表连接查询的信息,1-N映射,查询所有中国的城市</h2>
   		    <table id="grid-data" class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
@@ -58,7 +59,7 @@
                 <th data-column-id="city">city</th>
                 <th data-column-id="last_update">last_update</th>
                 <th data-column-id="commands" data-formatter="commands" data-sortable="false">country</th>
-            </tr>
+            </tr> 
         </thead>
     </table>
   		</div>
@@ -68,13 +69,13 @@
 $(document).ready(function(){
     var grid =$("#grid-data").bootgrid({
     ajax:true,
-    url:"getcitys",
-        formatters: {
+    url:"getchainacity",
+     formatters: {
         "commands": function(column, row)
         {
             return row.country.country; 
         }
-    	}
+    }
     });
   });
   </script>
