@@ -9,7 +9,7 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 
 3.数据库使用Mysql中自带的sakila数据库，使用前，请将SSM\src\main\resources\conf中的spring-mybatis.xml中的数据库密码设置为自己的；
 
-4.实现了sakila中的单表的增删改查和跨表查询，跨表查询包括了Mybatis的1-Nhe和N-1双向映射；
+4.实现了sakila中的单表的增删改查和跨表查询，跨表查询包括了Mybatis的1-N和N-1双向映射；
 
 5.集成了作业自动调度框架Quartz 2.2.2实现作业调度；
 
