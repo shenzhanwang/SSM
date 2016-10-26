@@ -33,6 +33,8 @@ public String fileupload(@RequestParam MultipartFile uploadfile,HttpServletReque
 		File targetfile=new File(targetDir,filename);
 		FileOutputStream os=new FileOutputStream(targetfile);
 		IOUtils.copy(is, os);
+		is.close();
+		os.close();
 	}catch(Exception e){
 		e.printStackTrace();
 	}

@@ -8,13 +8,16 @@ import mapper.ActorMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 
 import po.Actor;
 import poi.WriteExcel;
 import service.ActorService;
-
+@Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT,timeout=5)
 @Service("actorservice")
 public class ActorServiceImpl implements ActorService{
 	@Autowired
