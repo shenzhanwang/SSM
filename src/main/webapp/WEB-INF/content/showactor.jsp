@@ -58,7 +58,7 @@
   		<a class="btn btn-primary" href="#" id="add">添加actor</a>
   		<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    REST Service <span class="caret"></span>
+		    查看接口数据 <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu">
 		    <li><a href="/SSM/actorlistxml?current=1&rowCount=10" target="_blank">XML</a></li>

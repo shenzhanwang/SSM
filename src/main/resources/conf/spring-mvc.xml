@@ -29,6 +29,13 @@
                     </list>
                 </property>
             </bean>
+            <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">  
+                <property name="supportedMediaTypes">  
+                    <list>  
+                        <value>application/json;charset=UTF-8</value>  
+                    </list>  
+                </property>  
+            </bean>  
         </mvc:message-converters>
     </mvc:annotation-driven>
 <!-- 静态资源访问（不拦截此目录下的东西的访问） -->  
@@ -41,7 +48,6 @@
         <mvc:mapping path="/**" />  
         <mvc:exclude-mapping path="/login" />  
         <mvc:exclude-mapping path="/authImg"/>
-        
         <mvc:exclude-mapping path="/loginvalidate"/>
         <bean class="interceptor.LoginIntercepter"></bean>    
     </mvc:interceptor>  

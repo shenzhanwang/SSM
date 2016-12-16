@@ -27,7 +27,7 @@ public class ActorController {
 	
 	@RequestMapping(value="/actorlist",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public String getactorlist(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
+	public ActorGrid getactorlist(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int total=actorservice.getactornum();
 		List<Actor> list=actorservice.getpageActors(current,rowCount);
 		ActorGrid grid=new ActorGrid();
@@ -35,7 +35,7 @@ public class ActorController {
 		grid.setRowCount(rowCount);
 		grid.setRows(list);
 		grid.setTotal(total);
-		return JSON.toJSONString(grid);
+		return grid;
 	}
 	
 	@RequestMapping(value="/actorlistxml",produces = {"application/xml;charset=UTF-8"})
@@ -72,9 +72,9 @@ public class ActorController {
 	
 	@RequestMapping(value="/getActorInfo")
 	@ResponseBody
-	public String getactorbyid(@RequestParam("id") short id){
+	public Actor getactorbyid(@RequestParam("id") short id){
 		Actor a=actorservice.getActorByid(id);
-		return JSON.toJSONString(a);
+		return a;
 	}
 	
 	@RequestMapping("/addactor")

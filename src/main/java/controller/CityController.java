@@ -21,7 +21,7 @@ public class CityController {
 	CityService cityservice;
 	@RequestMapping("/getcitys")
 	@ResponseBody
-	String getcitys(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
+	CityGrid getcitys(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int total=cityservice.getCitylist().size();
 		List<City> list=cityservice.getpagecitylist(current,rowCount);
 		CityGrid grid=new CityGrid();
@@ -29,7 +29,7 @@ public class CityController {
 		grid.setRowCount(rowCount);
 		grid.setRows(list);
 		grid.setTotal(total);
-		return JSON.toJSONString(grid);
+		return grid;
 	}
 	
 	@RequestMapping("/country_city")
@@ -39,7 +39,7 @@ public class CityController {
 	
 	@RequestMapping("/getchainacity")
 	@ResponseBody
-	String getchinacity(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
+	CityGrid getchinacity(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		List<City> citys=cityservice.getCountryCity("China");
 		int total=citys.size();
 		List<City> clist=cityservice.getpageCountryCity("China", current, rowCount);
@@ -48,7 +48,7 @@ public class CityController {
 		grid.setRowCount(rowCount);
 		grid.setRows(clist);
 		grid.setTotal(total);
-		return JSON.toJSONString(grid);
+		return grid;
 	}
 	
 	@RequestMapping("/chinacity")
@@ -59,9 +59,9 @@ public class CityController {
 	
 	@RequestMapping("/countrycity")
 	@ResponseBody
-	String getcountrycity(@RequestParam("country")String country){
+	Country getcountrycity(@RequestParam("country")String country){
 		Country a=cityservice.getCountryCitys(country);
-		return JSON.toJSONString(a);
+		return a;
 	}
 	
 }
