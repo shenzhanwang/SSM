@@ -21,9 +21,7 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 
 9.包含了带验证码的登录功能以及登录权限验证的拦截器；
 
-10.整个包可直接导入Myeclipse继续编辑，war文件可直接放入tomcat部署。
-
-11.要使用Struts2+hibernate+spring的整合，[点击这里进入](https://github.com/shenzhanwang/SSH_maven)  
+10.要使用Struts2+hibernate+spring的整合，[点击这里进入](https://github.com/shenzhanwang/SSH_maven)  
 
 访问入口：http://localhost:8080/SSM/login
 
