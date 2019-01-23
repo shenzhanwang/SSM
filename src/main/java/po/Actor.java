@@ -1,10 +1,17 @@
 package po;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("演员表")
 public class Actor {
+	@ApiModelProperty("主键")
 	private short id;
+	@ApiModelProperty("名字")
 	private String first_name;
+	@ApiModelProperty("姓氏")
 	private String last_name;
+	@ApiModelProperty("最后更新日期")
 	private String last_update;
 	
 	public short getId() {
@@ -30,6 +37,11 @@ public class Actor {
 	}
 	public void setLast_update(String last_update) {
 		this.last_update = last_update;
+	}
+	@Override
+	public String toString() {
+		return "Actor [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", last_update="
+				+ last_update + "]";
 	}
 	
 }

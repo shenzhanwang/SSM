@@ -1,5 +1,6 @@
 package service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class CityServiceImpl implements CityService{
 	}
 	public Country getCountryCitys(String Countryname) {
 		return citymapper.getCitysbyCountry(Countryname);
+	}
+	@Override
+	public List<City> getCityByCountrys(List<Integer> ids) {
+		List<City> list = citymapper.selectCitysByName(ids);
+		return list;
 	}
 
 }

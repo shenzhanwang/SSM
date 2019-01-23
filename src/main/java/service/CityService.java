@@ -11,4 +11,5 @@ public interface CityService {
 	List<City> getCountryCity(String Countryname);
 	List<City> getpageCountryCity(String Countryname,int pagenum, int pagesize);
 	Country getCountryCitys(String Countryname);//一对多
+	List<City> getCityByCountrys(List<Integer> ids);
 }

@@ -13,18 +13,46 @@
 	<select id="getAllactors" resultMap="actorMap">
 		select * from actor
 	</select>
+	
+	<!-- 通常用set+if标签用于更新操作，避免前端没有上传的PO字段被置空 -->
 	<update id="updateActorbyid" parameterType="po.Actor">
-		update actor set 
-		first_name=#{first_name},last_name=#{last_name},last_update=#{last_update}
-		where actor_id=#{id}
-	</update>
+    update actor
+    <set>
+      <if test="first_name != null">
+        first_name = #{first_name,jdbcType=VARCHAR},
+      </if>
+      <if test="last_name != null">
+        last_name = #{last_name,jdbcType=VARCHAR},
+      </if>
+      <if test="last_update != null">
+        last_update = #{last_update,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where actor_id = #{id,jdbcType=SMALLINT}
+  </update>
+  
+  	<!-- 当需要对表中的数据按照1到多个条件进行检索时，用where+if标签可以减少大量SQL -->
+  	<select id="selectActorByName" resultMap="actorMap" parameterType="po.Actor">
+	    select * from actor
+	    <where>
+	        <if test="first_name != null">
+	           first_name=#{first_name}
+	        </if>
+	        <if test="last_name != null">
+	           and last_name=#{last_name}
+	        </if>
+	    </where>
+	</select>
+  
 	<select id="getactorbyid" resultMap="actorMap" parameterType="short">
 		select * from actor where actor_id=#{id} 
 	</select>
+	
 	<insert id="insertActor" useGeneratedKeys="true" keyProperty="id" parameterType="po.Actor">
 	  insert into actor (first_name,last_name,last_update)
 	  values (#{first_name},#{last_name},#{last_update})
 	</insert>
+	
 	<delete id="delete" parameterType="short">
 		delete from actor where actor_id=#{id}
 	</delete>

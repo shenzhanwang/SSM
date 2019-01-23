@@ -2,6 +2,7 @@ package poi;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -14,7 +15,10 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
 public class WriteExcel {
 	//导出表的列名
@@ -210,5 +214,24 @@ public class WriteExcel {
 			dataList.add(obj2);
 			WriteExcel ex = new WriteExcel(rowsName, dataList);  
 			ex.export();  
+
+
+			//往合并单元格写入数据，实际上是往合并单元格左上角的格子写入数据
+			HSSFWorkbook wb=new HSSFWorkbook();
+			HSSFCellStyle style=wb.createCellStyle();
+			style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+			Sheet sheet =wb.createSheet();
+			sheet.addMergedRegion(new CellRangeAddress(0, 0, 2, 4)); 
+			sheet.createRow(0).createCell(2).setCellValue("具体任务");
+			sheet.createRow(1).createCell(0).setCellValue("任务类别");
+			sheet.getRow(1).createCell(1).setCellValue("总任务");
+			sheet.getRow(0).getCell(2).setCellStyle(style);
+			for(int i=1;i<4;i++){
+				sheet.getRow(1).createCell(i+1).setCellValue("第"+i+"年度");
+			}
+			sheet.getRow(1).createCell(5).setCellValue("责任部门");
+			sheet.getRow(1).createCell(6).setCellValue("备注");
+	        wb.write(new FileOutputStream("D:\\test.xlsx"));  
 		}
+		
 }

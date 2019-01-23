@@ -7,27 +7,67 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import pagemodel.ActorGrid;
+import pagemodel.MSG;
 import po.Actor;
 import service.ActorService;
 
+@Api(tags = "演员接口")
 @Controller
 public class ActorController {
+	private static Logger log = LogManager.getLogger(ActorController.class.getName());
+	
 	@Autowired
 	private ActorService actorservice;
 	
-	@RequestMapping(value="/actorlist",produces = {"application/json;charset=UTF-8"})
+	@ApiOperation("获取所有演员列表")
+	@RequestMapping(value="/actors",method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ActorGrid getactorlist(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
+	public ActorGrid listActors(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount,
+			@RequestParam(required=false) String firstName,@RequestParam(required=false) String lastName){
+		log.info("aaa");
+		log.error("bbb");
+		int total;
+		List<Actor> list;
+		ActorGrid grid=new ActorGrid();
+		if (firstName==null&&lastName==null) {
+			total=actorservice.getactornum();
+			list=actorservice.getpageActors(current,rowCount);
+			grid.setRows(list);
+			grid.setTotal(total);
+		} else {
+			Actor a = new Actor();
+			a.setFirst_name(firstName);
+			a.setLast_name(lastName);
+			total = actorservice.selectActorByName(a).size();
+			list = actorservice.selectActorByName(a, current, rowCount);
+			grid.setRows(list);
+			grid.setTotal(total);
+		}
+		grid.setCurrent(current);
+		grid.setRowCount(rowCount);
+		return grid;
+	}
+	
+	
+	
+	@ApiOperation("获取所有演员列表XML")
+	@RequestMapping(value="/listActorsXml",produces = {"application/xml;charset=UTF-8"},method = RequestMethod.GET)
+	@ResponseBody
+	public ActorGrid listActorsXml(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int total=actorservice.getactornum();
 		List<Actor> list=actorservice.getpageActors(current,rowCount);
 		ActorGrid grid=new ActorGrid();
@@ -38,64 +78,45 @@ public class ActorController {
 		return grid;
 	}
 	
-	@RequestMapping(value="/actorlistxml",produces = {"application/xml;charset=UTF-8"})
-	@ResponseBody
-	public ActorGrid getactorlistxml(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
-		int total=actorservice.getactornum();
-		List<Actor> list=actorservice.getpageActors(current,rowCount);
-		ActorGrid grid=new ActorGrid();
-		grid.setCurrent(current);
-		grid.setRowCount(rowCount);
-		grid.setRows(list);
-		grid.setTotal(total);
-		return grid;
-	}
 	
-	
-	@RequestMapping("/showactor")
+	@RequestMapping(value="/showactor",method = RequestMethod.GET)
 	public String showactor(){
-		return "showactor";
+		return "/html/showactor.html";
 	}
 	
-	@RequestMapping(value="/updateactor",method = RequestMethod.POST)
-	public String updateactor(@RequestParam("id") short id,@RequestParam("first_name") String first_name,
-			@RequestParam("last_name") String last_name,@RequestParam("last_update") String last_update
-			){
-		Actor a=new Actor();
-		a.setFirst_name(first_name);
-		a.setId(id);
-		a.setLast_name(last_name);
-		a.setLast_update(last_update);
-		actorservice.updateactor(a);
-		return "showactor";
-	}
-	
-	@RequestMapping(value="/getActorInfo")
+	@ApiOperation("修改一个演员")
+	@RequestMapping(value="/actors/{id}",method = RequestMethod.PUT,consumes="application/json")
 	@ResponseBody
-	public Actor getactorbyid(@RequestParam("id") short id){
+	public Actor updateactor(@PathVariable("id") short id, @RequestBody Actor a){
+		Actor actor=actorservice.updateactor(a);
+		return actor;
+	}
+	
+	@ApiOperation("获取一个演员")
+	@RequestMapping(value="/actors/{id}",method = RequestMethod.GET)
+	@ResponseBody
+	public MSG getactorbyid(@PathVariable("id") short id){
 		Actor a=actorservice.getActorByid(id);
-		return a;
+		return new MSG("200",a);
 	}
 	
-	@RequestMapping("/addactor")
-	public String add(@RequestParam("first_name") String first_name,
-			@RequestParam("last_name") String last_name,@RequestParam("last_update") String last_update
-			){
-				Actor a=new Actor();
-				a.setFirst_name(first_name);
-				a.setLast_name(last_name);
-				a.setLast_update(last_update);
-				actorservice.addactor(a);
-				return "showactor";
+	@ApiOperation("添加一个演员")
+	@RequestMapping(value="/actors",method = RequestMethod.POST)
+	@ResponseBody
+	public Actor add(@RequestBody Actor a){
+		Actor actor=actorservice.addactor(a);
+		return actor;
 	}
 	
-	@RequestMapping(value="/deleteactor")
-	public String delete(@RequestParam("id") short id){
+	@ApiOperation("删除一个演员")
+	@RequestMapping(value="/actors/{id}",method = RequestMethod.DELETE)
+	public String delete(@PathVariable("id") short id){
 		actorservice.delete(id);
-		return "showactor";
+		return "/html/showactor.html";
 	}
 	
-	@RequestMapping("/exportactor")
+	@ApiOperation("把演员导出为Excel")
+	@RequestMapping(value="/exportactor",method = RequestMethod.GET)
 	public void export(HttpServletResponse response) throws Exception{
 		InputStream is=actorservice.getInputStream();
 		response.setContentType("application/vnd.ms-excel");

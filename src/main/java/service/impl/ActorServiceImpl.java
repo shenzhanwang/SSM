@@ -28,8 +28,9 @@ public class ActorServiceImpl implements ActorService{
 		return a;
 	}
 
-	public void updateactor(Actor a) {
+	public Actor updateactor(Actor a) {
 		actorMapper.updateActorbyid(a);
+		return a;
 	}
 
 	public List<Actor> getpageActors(int pagenum, int pagesize) {
@@ -43,8 +44,9 @@ public class ActorServiceImpl implements ActorService{
 		return l.size();
 	}
 
-	public void addactor(Actor a) {
+	public Actor addactor(Actor a) {
 		actorMapper.insertActor(a);
+		return a;
 	}
 
 	public void delete(short id) {
@@ -67,6 +69,19 @@ public class ActorServiceImpl implements ActorService{
 		InputStream in;
 		in = ex.export();
 		return in;
+	}
+
+	@Override
+	public List<Actor> selectActorByName(Actor a) {
+		List<Actor> list = actorMapper.selectActorByName(a);
+		return list;
+	}
+
+	@Override
+	public List<Actor> selectActorByName(Actor a, int pagenum, int pagesize) {
+		PageHelper.startPage(pagenum,pagesize);  
+		List<Actor> list = actorMapper.selectActorByName(a);
+		return list;
 	}
 
 }
