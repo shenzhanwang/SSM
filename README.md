@@ -1,13 +1,13 @@
 # SSM
-SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一个已经整合好三大框架的包，可以直接下载导入Myeclipse使用，项目基于Maven做依赖管理。项目基于Mysql自带的Sakila数据库实现了MIS系统中常用的多个功能，运行前请安装好Mysql5.6。
+Spring boot,Mybatis的整合总是很麻烦，在此提供一个已经整合好三大框架的包，可以直接下载导入Myeclipse使用，项目基于Maven做依赖管理。项目基于Mysql自带的Sakila数据库实现了MIS系统中常用的多个功能，运行前请安装好Mysql5.6。
 
 其中包含的内容如下：
 
-1.SpringMVC4.3.16,Mybatis3.2.2,Spring4.3.16三大框架的整合；
+1.Spring boot 1.5.10,Mybatis3.2.2的整合；
 
 2.前端框架集成了Bootstrap3.3.5，Jquery1.12.3,集成了Bootstrap插件Bootgrid数据表格实现分页，使用Bootstrap的datetimepicker插件实现日期时间选择，后台的分页使用Mybatis的插件pagehelper实现；
 
-3.数据库使用Mysql中自带的sakila数据库，使用前，请将SSM\src\main\resources\conf中的spring-mybatis.xml中的数据库密码设置为自己的；
+3.数据库使用Mysql中自带的sakila数据库，使用前，请将application.properties中的spring.datasource.password中的数据库密码设置为自己的；
 
 4.实现了sakila中的单表的增删改查和跨表查询，跨表查询包括了Mybatis的1-N和N-1双向映射；
 
@@ -27,15 +27,15 @@ SpringMVC,Mybatis,Spring三大框架的整合总是很麻烦，在此提供一�
 
 12.整合日志工具log4j2，较log4j1.x有较大性能提升，支持日志文件输出和控制台输出；
 
-13. 整合接口文档swagger2.4，入口http://localhost:8080/SSM/swagger-ui.html
+13. 整合接口文档swagger2.2.2，入口http://localhost:8080/swagger-ui.html
 
 14. 将后台接口REST化，详情参考https://gitee.com/shenzhanwang/Spring-REST
 
 15. 添加mybatis的动态SQL的使用
 
-访问入口：http://localhost:8080/SSM/login
+访问入口：http://localhost:8080/login
 
-16. 要使用spring boot，切换分支到https://gitee.com/shenzhanwang/SSM/tree/spring-boot/
+16. 要使用传统spring，切换分支到https://gitee.com/shenzhanwang/SSM/tree/master/
 
 效果图：
 
