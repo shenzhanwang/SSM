@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import boot.spring.mapper.CityMapper;
+import boot.spring.pagemodel.CityAnalysis;
 import boot.spring.pagemodel.CityGrid;
 import boot.spring.po.City;
 import boot.spring.po.Country;
@@ -18,7 +21,12 @@ import boot.spring.service.CityService;
 public class CityController {
 	@Autowired
 	CityService cityservice;
-	@RequestMapping("/getcitys")
+	
+	@Autowired
+	CityMapper citymapper;
+	
+	
+	@RequestMapping(value="/getcitys",method = RequestMethod.GET)
 	@ResponseBody
 	CityGrid getcitys(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int total=cityservice.getCitylist().size();
@@ -31,17 +39,22 @@ public class CityController {
 		return grid;
 	}
 	
-	@RequestMapping("/city")
+	@RequestMapping(value="/city",method = RequestMethod.GET)
 	String city(){
 		return "city";
 	}
 	
-	@RequestMapping("/country")
+	@RequestMapping(value="/country",method = RequestMethod.GET)
 	String country(){
 		return "country";
 	}
 	
-	@RequestMapping("/getchainacity")
+	@RequestMapping(value="/analysis",method = RequestMethod.GET)
+	String analysis(){
+		return "analysis";
+	}
+	
+	@RequestMapping(value="/getchainacity",method = RequestMethod.GET)
 	@ResponseBody
 	CityGrid getchinacity(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		List<City> citys=cityservice.getCountryCity("China");
@@ -56,10 +69,17 @@ public class CityController {
 	}
 	
 	
-	@RequestMapping("/countrycity")
+	@RequestMapping(value="/countrycity",method = RequestMethod.GET)
 	@ResponseBody
 	Country getcountrycity(@RequestParam("country")String country){
 		Country a=cityservice.getCountryCitys(country);
+		return a;
+	}
+	
+	@RequestMapping(value="/cityanalysis",method = RequestMethod.GET)
+	@ResponseBody
+	List<CityAnalysis> cityanalysis(){
+		List<CityAnalysis> a=citymapper.analysisCitys();
 		return a;
 	}
 	

@@ -53,7 +53,7 @@ public String fileuploads(@RequestParam MultipartFile[] uploadfile,HttpServletRe
 	return "success";
 }
 
-@RequestMapping("/fileupload")
+@RequestMapping(value="/fileupload",method = RequestMethod.GET)
 String fileupload(){
 	return "fileupload";
 }

@@ -18,6 +18,6 @@ public class ScheduledTasks {
 	    @Scheduled(cron="0 0/1 * * * ?")
 	    public void reportCurrentTime() {
 	        List<Actor> list=actorservice.getpageActors(1, 10);
-	        System.out.println(list.get(0).getFirst_name());
+//	        System.out.println(list.get(0).getFirst_name());
 	    }
 }

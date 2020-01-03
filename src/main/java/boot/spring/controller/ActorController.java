@@ -1,12 +1,15 @@
 package boot.spring.controller;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.util.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import boot.spring.pagemodel.ActorGrid;
 import boot.spring.po.Actor;
@@ -30,6 +32,8 @@ public class ActorController {
 	@Autowired
 	private ActorService actorservice;
 	
+	private static final Logger LOG = LoggerFactory.getLogger(ActorController.class);
+	
 	@ApiOperation("获取所有演员列表")
 	@RequestMapping(value="/actors",method = RequestMethod.GET)
 	@ResponseBody
@@ -41,6 +45,7 @@ public class ActorController {
 		grid.setRowCount(rowCount);
 		grid.setRows(list);
 		grid.setTotal(total);
+		LOG.debug("获取所有演员列表");
 		return grid;
 	}
 	
@@ -49,6 +54,7 @@ public class ActorController {
 	@ResponseBody
 	public Actor updateactor(@RequestBody Actor a){
 		Actor actor=actorservice.updateactor(a);
+		LOG.debug("修改一个演员");
 		return actor;
 	}
 	
@@ -57,6 +63,7 @@ public class ActorController {
 	@ResponseBody
 	public Actor getactorbyid(@PathVariable("id") short id){
 		Actor a=actorservice.getActorByid(id);
+		LOG.debug("获取一个演员");
 		return a;
 	}
 	
@@ -65,6 +72,7 @@ public class ActorController {
 	@ResponseBody
 	public Actor add(@RequestBody Actor a){
 		Actor actor=actorservice.addactor(a);
+		LOG.debug("添加一个演员");
 		return actor;
 	}
 	
@@ -73,12 +81,15 @@ public class ActorController {
 	@ResponseBody
 	public String delete(@PathVariable("id") String id){
 		actorservice.delete(Short.valueOf(id));
+		LOG.debug("删除一个演员");
 		return "success";
 	}
 	
 	@ApiOperation("把演员导出为Excel")
-	@RequestMapping(value="/exportactor",method = RequestMethod.GET)
-	public void export(HttpServletResponse response) throws Exception{
+	@RequestMapping(value="/exportactor",method = RequestMethod.POST)
+	@ResponseBody
+	public void export(HttpServletResponse response, @RequestBody HashMap<String, String> a) throws Exception{
+//		System.out.print(a.get("first_name") + "=======" + a.get("last_name"));
 		InputStream is=actorservice.getInputStream();
 		response.setContentType("application/vnd.ms-excel");
 		response.setHeader("contentDisposition", "attachment;filename=AllUsers.xls");
@@ -90,4 +101,6 @@ public class ActorController {
 	String showactor(){
 		return "showactor";
 	}
+	
+	
 }

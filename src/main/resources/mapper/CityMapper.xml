@@ -26,6 +26,11 @@
 	        <result column="last_update" property="last_update"/>
 		</collection>
 	</resultMap>
+	
+	<resultMap type="boot.spring.pagemodel.CityAnalysis" id="cityanalysis">
+		<result column="citynumber" property="citynumber"/>
+	    <result column="country" property="country"/>
+	</resultMap>
     
     <select id="getCitys" resultMap="cityMap">
     	select * from city,country where city.country_id=country.country_id
@@ -39,4 +44,26 @@
     	select * from city,country where city.country_id=country.country_id and country.country=#{country}
     </select>
     
+    <select id="selectCitysByName" parameterType="java.util.List" resultType="boot.spring.po.City">
+        select * from city
+         where country_id in
+            <!--
+                collection:指定输入对象中的集合属性
+                item:每次遍历生成的对象
+                open:开始遍历时的拼接字符串
+                close:结束时拼接的字符串
+                separator:遍历对象之间需要拼接的字符串
+                select * from city where  country_id in (23,50,86)
+               	 查找中日韩的城市列表
+              -->
+            <foreach collection="list" item="item" open="(" close=") " separator=",">
+                #{item}
+            </foreach>
+    </select>
+    
+    <select id="analysisCitys" resultMap="cityanalysis">
+    	SELECT count(*) as citynumber,country from city inner join country
+		on city.country_id=country.country_id
+		GROUP BY city.country_id order by citynumber desc limit 10
+    </select>
 </mapper>

@@ -14,9 +14,19 @@
 		select * from actor
 	</select>
 	<update id="updateActorbyid" parameterType="boot.spring.po.Actor">
-		update actor set 
-		first_name=#{first_name},last_name=#{last_name},last_update=#{last_update}
-		where actor_id=#{id}
+		update actor
+	    <set>
+	      <if test="first_name != null">
+	        first_name = #{first_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="last_name != null">
+	        last_name = #{last_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="last_update != null">
+	        last_update = #{last_update,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where actor_id = #{id,jdbcType=SMALLINT}
 	</update>
 	<select id="getactorbyid" resultMap="actorMap" parameterType="short">
 		select * from actor where actor_id=#{id} 
@@ -28,4 +38,17 @@
 	<delete id="delete" parameterType="short">
 		delete from actor where actor_id=#{id}
 	</delete>
+	
+		<!-- 当需要对表中的数据按照1到多个条件进行检索时，用where+if标签可以减少大量SQL -->
+  	<select id="selectActorByName" resultMap="actorMap" parameterType="boot.spring.po.Actor">
+	    select * from actor
+	    <where>
+	        <if test="first_name != null">
+	           first_name=#{first_name}
+	        </if>
+	        <if test="last_name != null">
+	           and last_name=#{last_name}
+	        </if>
+	    </where>
+	</select>
 </mapper>

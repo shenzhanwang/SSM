@@ -12,4 +12,5 @@ public interface ActorMapper {
 	public Actor getactorbyid(short id);
 	public void insertActor(Actor a);
 	public void delete(short id);
+	public List<Actor> selectActorByName(Actor a);
 }
