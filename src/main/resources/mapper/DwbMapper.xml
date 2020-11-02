@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boot.spring.mapper.DwbMapper">
+  <resultMap id="BaseResultMap" type="boot.spring.po.Dwb">
+    <id column="dwbh" jdbcType="VARCHAR" property="dwbh" />
+    <result column="dwmc" jdbcType="VARCHAR" property="dwmc" />
+    <result column="sjdwbh" jdbcType="VARCHAR" property="sjdwbh" />
+    <result column="xzqh" jdbcType="VARCHAR" property="xzqh" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dwbh, dwmc, sjdwbh, xzqh
+  </sql>
+  
+  <select id="listDwb" resultMap="BaseResultMap">
+  	select * from dwb
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dwb
+    where dwbh = #{dwbh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dwb
+    where dwbh = #{dwbh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="boot.spring.po.Dwb">
+    insert into dwb (dwbh, dwmc, sjdwbh, 
+      xzqh)
+    values (#{dwbh,jdbcType=VARCHAR}, #{dwmc,jdbcType=VARCHAR}, #{sjdwbh,jdbcType=VARCHAR}, 
+      #{xzqh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="boot.spring.po.Dwb">
+    insert into dwb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dwbh != null">
+        dwbh,
+      </if>
+      <if test="dwmc != null">
+        dwmc,
+      </if>
+      <if test="sjdwbh != null">
+        sjdwbh,
+      </if>
+      <if test="xzqh != null">
+        xzqh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dwbh != null">
+        #{dwbh,jdbcType=VARCHAR},
+      </if>
+      <if test="dwmc != null">
+        #{dwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sjdwbh != null">
+        #{sjdwbh,jdbcType=VARCHAR},
+      </if>
+      <if test="xzqh != null">
+        #{xzqh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="boot.spring.po.Dwb">
+    update dwb
+    <set>
+      <if test="dwmc != null">
+        dwmc = #{dwmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sjdwbh != null">
+        sjdwbh = #{sjdwbh,jdbcType=VARCHAR},
+      </if>
+      <if test="xzqh != null">
+        xzqh = #{xzqh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dwbh = #{dwbh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="boot.spring.po.Dwb">
+    update dwb
+    set dwmc = #{dwmc,jdbcType=VARCHAR},
+      sjdwbh = #{sjdwbh,jdbcType=VARCHAR},
+      xzqh = #{xzqh,jdbcType=VARCHAR}
+    where dwbh = #{dwbh,jdbcType=VARCHAR}
+  </update>
+</mapper>

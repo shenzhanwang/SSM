@@ -14,4 +14,7 @@ import boot.spring.po.Actor;
 		Actor addactor(Actor a);
 		void delete(short id);
 		InputStream getInputStream() throws Exception;
+		
+		// 耗时的操作使用异步任务
+		String asyncTask();
 	}

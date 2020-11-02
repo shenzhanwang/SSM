@@ -14,10 +14,11 @@ public class ScheduledTasks {
 	
 	@Autowired
 	private ActorService actorservice;
-	
-	    @Scheduled(cron="0 0/1 * * * ?")
-	    public void reportCurrentTime() {
-	        List<Actor> list=actorservice.getpageActors(1, 10);
-//	        System.out.println(list.get(0).getFirst_name());
+		
+		// 五秒钟一次，默认单线程的，每次任务执行完后，再等五秒钟开始执行下一次
+//	    @Scheduled(cron="*/5 * * * * ?")
+	    public void reportCurrentTime() throws Exception {
+	        Thread.sleep(10000);
+	        System.out.println(System.currentTimeMillis());
 	    }
 }

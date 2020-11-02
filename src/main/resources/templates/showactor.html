@@ -195,7 +195,7 @@
 											class="table table-condensed table-hover table-striped">
 											<thead>
 												<tr>
-													<th data-column-id="id" data-identifier="true"
+													<th data-column-id="actor_id" data-identifier="true"
 														data-type="numeric">ID</th>
 													<th data-column-id="first_name">first_name</th>
 													<th data-column-id="last_name">last_name</th>
@@ -575,7 +575,7 @@
   });
   
   $("#updateactor").click(function(){
-  		var json={"id":$("#actorid").val(),"first_name":$("#fname").val(),"last_name":$("#lname").val(),"last_update":$("#lupdate").val()};
+  		var json={"actor_id":$("#actorid").val(),"first_name":$("#fname").val(),"last_name":$("#lname").val(),"last_update":$("#lupdate").val()};
 		   $.ajax({  
             url : "/actors",  
             type : "PUT",  
@@ -603,8 +603,8 @@
         formatters: {
         "commands": function(column, row)
         {
-            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\">编辑<span class=\"glyphicon glyphicon-pencil\"></span></button> "
-            +"<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\'" + row.id + "\'>删除<span class=\"glyphicon glyphicon-trash\"></span></button> "; 
+            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.actor_id + "\">编辑<span class=\"glyphicon glyphicon-pencil\"></span></button> "
+            +"<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\'" + row.actor_id + "\'>删除<span class=\"glyphicon glyphicon-trash\"></span></button> "; 
         }
     	}
     }).on("loaded.rs.jquery.bootgrid", function()
@@ -617,7 +617,7 @@
 	        	$("#fname").val(str.first_name);
 	        	$("#lname").val(str.last_name);
 	        	$("#lupdate").val(str.last_update);
-	        	$("#actorid").val(str.id);
+	        	$("#actorid").val(str.actor_id);
 	        });
 	    }).end().find(".command-delete").on("click", function(e)
 		    {

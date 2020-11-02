@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boot.spring.mapper.XzqhMapper">
+  <resultMap id="BaseResultMap" type="boot.spring.po.Xzqh">
+    <id column="bm" jdbcType="VARCHAR" property="bm" />
+    <result column="sjbm" jdbcType="VARCHAR" property="sjbm" />
+    <result column="mc" jdbcType="VARCHAR" property="mc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bm, sjbm, mc
+  </sql>
+  
+  <select id="listAll" resultMap="BaseResultMap">
+  	select * from xzqh
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xzqh
+    where bm = #{bm,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xzqh
+    where bm = #{bm,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="boot.spring.po.Xzqh">
+    insert into xzqh (bm, sjbm, mc)
+    values (#{bm,jdbcType=VARCHAR}, #{sjbm,jdbcType=VARCHAR}, #{mc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="boot.spring.po.Xzqh">
+    insert into xzqh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bm != null">
+        bm,
+      </if>
+      <if test="sjbm != null">
+        sjbm,
+      </if>
+      <if test="mc != null">
+        mc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bm != null">
+        #{bm,jdbcType=VARCHAR},
+      </if>
+      <if test="sjbm != null">
+        #{sjbm,jdbcType=VARCHAR},
+      </if>
+      <if test="mc != null">
+        #{mc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="boot.spring.po.Xzqh">
+    update xzqh
+    <set>
+      <if test="sjbm != null">
+        sjbm = #{sjbm,jdbcType=VARCHAR},
+      </if>
+      <if test="mc != null">
+        mc = #{mc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bm = #{bm,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="boot.spring.po.Xzqh">
+    update xzqh
+    set sjbm = #{sjbm,jdbcType=VARCHAR},
+      mc = #{mc,jdbcType=VARCHAR}
+    where bm = #{bm,jdbcType=VARCHAR}
+  </update>
+</mapper>

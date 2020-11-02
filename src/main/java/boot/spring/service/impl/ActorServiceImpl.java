@@ -4,12 +4,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import boot.spring.controller.ActorController;
 import boot.spring.mapper.ActorMapper;
 import boot.spring.po.Actor;
 import boot.spring.poi.WriteExcel;
@@ -22,6 +26,8 @@ import com.github.pagehelper.PageHelper;
 public class ActorServiceImpl implements ActorService{
 	@Autowired
 	public ActorMapper actorMapper;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ActorServiceImpl.class);
 	    
 	public Actor getActorByid(short id) {
 		Actor a=actorMapper.getactorbyid(id);
@@ -59,7 +65,7 @@ public class ActorServiceImpl implements ActorService{
 		List<Object[]>  dataList = new ArrayList<Object[]>();  
 		for(int i=0;i<plist.size();i++){
 			Object[] obj=new Object[4];
-			obj[0]=plist.get(i).getId();
+			obj[0]=plist.get(i).getActor_id();
 			obj[1]=plist.get(i).getFirst_name();
 			obj[2]=plist.get(i).getLast_name();
 			obj[3]=plist.get(i).getLast_update();
@@ -69,6 +75,19 @@ public class ActorServiceImpl implements ActorService{
 		InputStream in;
 		in = ex.export();
 		return in;
+	}
+
+	@Override
+	@Async
+	public String asyncTask() {
+		LOG.info("start sleep");
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		LOG.info("end sleep");
+		return "ok";
 	}
 
 }

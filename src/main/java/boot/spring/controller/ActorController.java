@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.spring.pagemodel.ActorGrid;
+import boot.spring.pagemodel.MSG;
 import boot.spring.po.Actor;
 import boot.spring.service.ActorService;
+import boot.spring.tools.FtpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -31,6 +33,9 @@ import io.swagger.annotations.ApiOperation;
 public class ActorController {
 	@Autowired
 	private ActorService actorservice;
+	
+	@Autowired
+	FtpUtil ftpUtil;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ActorController.class);
 	
@@ -45,7 +50,7 @@ public class ActorController {
 		grid.setRowCount(rowCount);
 		grid.setRows(list);
 		grid.setTotal(total);
-		LOG.debug("获取所有演员列表");
+		LOG.info("获取所有演员列表");
 		return grid;
 	}
 	
@@ -54,7 +59,7 @@ public class ActorController {
 	@ResponseBody
 	public Actor updateactor(@RequestBody Actor a){
 		Actor actor=actorservice.updateactor(a);
-		LOG.debug("修改一个演员");
+		LOG.info("修改一个演员");
 		return actor;
 	}
 	
@@ -63,7 +68,7 @@ public class ActorController {
 	@ResponseBody
 	public Actor getactorbyid(@PathVariable("id") short id){
 		Actor a=actorservice.getActorByid(id);
-		LOG.debug("获取一个演员");
+		LOG.info("获取一个演员");
 		return a;
 	}
 	
@@ -72,7 +77,7 @@ public class ActorController {
 	@ResponseBody
 	public Actor add(@RequestBody Actor a){
 		Actor actor=actorservice.addactor(a);
-		LOG.debug("添加一个演员");
+		LOG.info("添加一个演员");
 		return actor;
 	}
 	
@@ -81,7 +86,7 @@ public class ActorController {
 	@ResponseBody
 	public String delete(@PathVariable("id") String id){
 		actorservice.delete(Short.valueOf(id));
-		LOG.debug("删除一个演员");
+		LOG.info("删除一个演员");
 		return "success";
 	}
 	
@@ -92,7 +97,7 @@ public class ActorController {
 //		System.out.print(a.get("first_name") + "=======" + a.get("last_name"));
 		InputStream is=actorservice.getInputStream();
 		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("contentDisposition", "attachment;filename=AllUsers.xls");
+		response.setHeader("Content-Disposition", "attachment;filename=AllUsers.xls");
 		ServletOutputStream output = response.getOutputStream();
 		IOUtils.copy(is, output);
 	}
@@ -102,5 +107,30 @@ public class ActorController {
 		return "showactor";
 	}
 	
+	@ApiOperation("从FTP服务器下载文件")
+	@RequestMapping(value="/downloadFTP",method = RequestMethod.GET)
+	@ResponseBody
+	public void downloadFTP() throws Exception{
+		ftpUtil.downloadFiles("/wsz", "/测试1dd.png","D://pic");
+    	ftpUtil.downloadFiles("/to 吴方涛 from 王海伟", "/郑州110 科所队系统用户操作手册.doc","D://pic");
+	}	
 	
+	@ApiOperation("从FTP服务器导出文件")
+	@RequestMapping(value="/exportFTP",method = RequestMethod.GET)
+	@ResponseBody
+	public void exportFTP(HttpServletResponse response) throws Exception{
+    	InputStream is=ftpUtil.exportFile("/王深湛", "/测试1.png");
+		response.setContentType("application/x-png");
+		response.setHeader("Content-Disposition","attachment;filename=1.png");
+		ServletOutputStream output = response.getOutputStream();
+		IOUtils.copy(is, output);
+	}	
+	
+	@ApiOperation("从FTP服务器导出base64编码")
+	@RequestMapping(value="/exportBase64",method = RequestMethod.GET)
+	@ResponseBody
+	public MSG exportBase64(HttpServletResponse response) throws Exception{
+    	String base64=ftpUtil.exportBase64("/王深湛", "/测试1.png");
+    	return new MSG(base64);
+	}	
 }
